@@ -1,0 +1,19 @@
+CLAUDE.md
+  s_b3dc1cdf6387b7::t_f1764f9940c801 1-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "12a790ea2415c5467414b3c4180813783306c3e4",
+  "prompts": {},
+  "sessions": {
+    "s_b3dc1cdf6387b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05cd4d9c-bb25-45e1-8e5c-65f74ea436e0",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
