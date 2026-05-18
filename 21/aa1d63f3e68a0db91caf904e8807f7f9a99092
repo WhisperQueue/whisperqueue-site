@@ -1,0 +1,26 @@
+src/layouts/BaseLayout.astro
+  s_b3dc1cdf6387b7::t_8c372e55eb20b4 1-7,9-19,27-34,37-40
+  s_b3dc1cdf6387b7::t_64b119f160a391 8,20-26,35-36,41-97
+src/styles/global.css
+  s_b3dc1cdf6387b7::t_7d758065703b98 1-89
+  s_b3dc1cdf6387b7::t_2c65666a412221 90
+src/layouts/DocsLayout.astro
+  s_b3dc1cdf6387b7::t_8f71d7619a8ff7 22-25,27,34,39-91
+  s_b3dc1cdf6387b7::t_45557668075dfa 1-21,26,28-33,35-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "21aa1d63f3e68a0db91caf904e8807f7f9a99092",
+  "prompts": {},
+  "sessions": {
+    "s_b3dc1cdf6387b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05cd4d9c-bb25-45e1-8e5c-65f74ea436e0",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
