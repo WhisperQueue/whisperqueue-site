@@ -1,0 +1,22 @@
+project-docs/TAILWIND_BUG.md
+  s_b3dc1cdf6387b7::t_e86fe380edd206 46-48
+src/layouts/DocsLayout.astro
+  s_b3dc1cdf6387b7::t_5a9a77a2d56d0e 31
+  s_b3dc1cdf6387b7::t_878ae32291b370 19-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "cd190d8ea5a311eeb079c1907cb51f0ae01db1ef",
+  "prompts": {},
+  "sessions": {
+    "s_b3dc1cdf6387b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05cd4d9c-bb25-45e1-8e5c-65f74ea436e0",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
