@@ -1,0 +1,58 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Auth — WhisperQueue">
+  <h1>Authentication</h1>
+
+  <p class="muted">
+    All endpoints except <code>GET /health</code> require a static API key
+    via the Authorization header.
+  </p>
+
+  <div class="code-block">
+    Authorization: Bearer &lt;API_KEY&gt;
+  </div>
+
+  <p class="muted">
+    Returns <code>401 Unauthorized</code> if missing or incorrect.
+  </p>
+
+  <section class="docs-section">
+    <h2>Generating an API key</h2>
+    <div class="code-block">
+      openssl rand -hex 32
+    </div>
+    <p class="muted">Set the key in your <code>.env</code> file:</p>
+    <div class="code-block">
+      API_KEY=your-generated-key-here
+    </div>
+  </section>
+
+  <section class="docs-section">
+    <h2>Health endpoint exemption</h2>
+    <p class="muted">
+      <code>GET /health</code> does not require authentication.
+      This allows uptime monitors and load balancers to reach it without credentials.
+    </p>
+  </section>
+</DocsLayout>
+
+<style>
+  h1 { font-size: 1.875rem; font-weight: 500; }
+  h2 { font-size: 1.25rem; font-weight: 500; }
+  .muted { color: var(--wq-muted); margin-top: 0.5rem; }
+  .docs-section { margin-top: 2.5rem; }
+  .code-block {
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--wq-border);
+    background-color: var(--wq-raised);
+    padding: 1rem 1.25rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    line-height: 2;
+    overflow-x: auto;
+  }
+  code { color: var(--wq-accent-lt); }
+</style>

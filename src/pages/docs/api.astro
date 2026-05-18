@@ -1,0 +1,171 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+
+const exampleNewJob = JSON.stringify({
+  job_id: "job_abc123",
+  status: "queued",
+  position: 3
+}, null, 2)
+
+const exampleCacheHit = JSON.stringify({
+  transcript_id: "tr_xyz789",
+  cached: true
+}, null, 2)
+
+const exampleStatusQueued = JSON.stringify({
+  job_id: "job_abc123",
+  status: "queued",
+  position: 3,
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleStatusProcessing = JSON.stringify({
+  job_id: "job_abc123",
+  status: "processing",
+  progress: 42,
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleStatusCompleted = JSON.stringify({
+  job_id: "job_abc123",
+  status: "completed",
+  transcript_id: "tr_xyz789",
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleStatusFailed = JSON.stringify({
+  job_id: "job_abc123",
+  status: "failed",
+  error: "could not download file",
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleTranscript = JSON.stringify({
+  transcript_id: "tr_xyz789",
+  text: "Hey welcome back to the channel...",
+  language: "en",
+  duration: 142.5,
+  cached: true,
+  segments: [
+    { start: 0.0, end: 4.2, text: "Hey welcome back..." },
+    { start: 4.2, end: 8.7, text: "today we are going to..." }
+  ],
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleHealth = JSON.stringify({
+  status: "ok",
+  model: "large-v3",
+  device: "cuda",
+  queue_depth: 2
+}, null, 2)
+---
+
+<DocsLayout title="API reference — WhisperQueue">
+  <h1>API reference</h1>
+  <p class="muted">Base URL: <code>http://omen.local:3000</code></p>
+
+  <section class="api-section">
+    <h2>POST /transcribe</h2>
+    <p class="muted">Submit a transcription job. Returns a job ID immediately — does not wait for completion.</p>
+
+    <h3>Request body</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>url</code></td><td>string</td><td>Yes</td><td>S3 or HTTPS URL</td></tr>
+          <tr><td><code>language</code></td><td>string</td><td>No</td><td>BCP-47 code. Omit to auto-detect.</td></tr>
+          <tr><td><code>force</code></td><td>boolean</td><td>No</td><td>Bypass cache. Default false.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Response — new job</h3>
+    <div class="code-block"><pre>{exampleNewJob}</pre></div>
+
+    <h3>Response — cache hit</h3>
+    <div class="code-block"><pre>{exampleCacheHit}</pre></div>
+    <p class="muted small">Cache hits skip the queue and return the transcript ID immediately.</p>
+  </section>
+
+  <section class="api-section">
+    <h2>GET /status/:job_id</h2>
+    <p class="muted">Poll for job progress. Job and transcript are separate concepts with separate IDs.</p>
+
+    <h3>Queued</h3>
+    <div class="code-block"><pre>{exampleStatusQueued}</pre></div>
+
+    <h3>Processing</h3>
+    <div class="code-block"><pre>{exampleStatusProcessing}</pre></div>
+
+    <h3>Completed</h3>
+    <div class="code-block"><pre>{exampleStatusCompleted}</pre></div>
+
+    <h3>Failed</h3>
+    <div class="code-block"><pre>{exampleStatusFailed}</pre></div>
+  </section>
+
+  <section class="api-section">
+    <h2>GET /transcript/:transcript_id</h2>
+    <p class="muted">
+      Fetch the completed transcript. Returns <code>425 Too Early</code> if job isn't done,
+      <code>404</code> if not found.
+    </p>
+
+    <div class="code-block"><pre>{exampleTranscript}</pre></div>
+
+    <p class="muted small">
+      Segments are the transcript broken into timed chunks. Useful for subtitles, audio players,
+      searchable transcripts, and speaker attribution.
+    </p>
+  </section>
+
+  <section class="api-section">
+    <h2>GET /health</h2>
+    <p class="muted">Service status. Exempt from API key auth so uptime monitors can reach it.</p>
+
+    <div class="code-block"><pre>{exampleHealth}</pre></div>
+  </section>
+</DocsLayout>
+
+<style>
+  h1 { font-size: 1.875rem; font-weight: 500; }
+  h2 { font-size: 1.25rem; font-weight: 500; margin-top: 3rem; }
+  h3 { font-size: 1.125rem; font-weight: 500; margin-top: 1.5rem; }
+  .muted { color: var(--wq-muted); margin-top: 0.5rem; }
+  .muted.small { font-size: 0.875rem; margin-top: 0.75rem; }
+  .api-section { margin-top: 3rem; }
+  .api-section:first-of-type { margin-top: 0; }
+
+  .code-block {
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--wq-border);
+    background-color: var(--wq-raised);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+  }
+
+  .code-block pre {
+    margin: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: monospace;
+    font-size: 0.875rem;
+    line-height: 2;
+    color: var(--wq-text);
+  }
+
+  .table-wrap {
+    margin-top: 0.75rem;
+    overflow-x: auto;
+  }
+
+  code {
+    color: var(--wq-accent-lt);
+  }
+</style>

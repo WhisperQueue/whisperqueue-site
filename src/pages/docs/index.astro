@@ -1,0 +1,70 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Docs — WhisperQueue">
+  <h1>Documentation</h1>
+
+  <p class="muted">
+    WhisperQueue is a self-hosted async transcription microservice built in TypeScript/Bun
+    that wraps faster-whisper CLI for GPU-accelerated audio transcription.
+  </p>
+
+  <div class="doc-links">
+    <a href="/docs/api" class="doc-card">
+      <div class="doc-card-title">API reference</div>
+      <div class="doc-card-desc">Endpoints, request/response formats, and usage examples</div>
+    </a>
+    <a href="/docs/caching" class="doc-card">
+      <div class="doc-card-title">Caching</div>
+      <div class="doc-card-desc">ETag-based caching strategy — skip GPU entirely on cache hits</div>
+    </a>
+    <a href="/docs/auth" class="doc-card">
+      <div class="doc-card-title">Auth</div>
+      <div class="doc-card-desc">Static API key authentication via Bearer header</div>
+    </a>
+    <a href="/docs/errors" class="doc-card">
+      <div class="doc-card-title">Error codes</div>
+      <div class="doc-card-desc">HTTP status codes and what they mean</div>
+    </a>
+    <a href="/docs/deployment" class="doc-card">
+      <div class="doc-card-title">Deployment</div>
+      <div class="doc-card-desc">Docker Compose setup, configuration, and volume management</div>
+    </a>
+  </div>
+</DocsLayout>
+
+<style>
+  h1 { font-size: 1.875rem; font-weight: 500; }
+  .muted { color: var(--wq-muted); margin-top: 1rem; }
+
+  .doc-links {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .doc-card {
+    display: block;
+    border-radius: 0.75rem;
+    border: 1px solid var(--wq-border);
+    background-color: var(--wq-surface);
+    padding: 1.25rem;
+    transition: border-color 150ms;
+  }
+
+  .doc-card:hover {
+    border-color: var(--wq-accent);
+  }
+
+  .doc-card-title {
+    font-weight: 500;
+  }
+
+  .doc-card-desc {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--wq-muted);
+  }
+</style>
