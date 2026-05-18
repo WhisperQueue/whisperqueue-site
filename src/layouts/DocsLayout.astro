@@ -16,6 +16,8 @@ const navItems = [
   { href: '/docs/errors', label: 'Error codes' },
   { href: '/docs/deployment', label: 'Deployment' },
 ]
+
+const currentPath = Astro.url.pathname
 ---
 
 <BaseLayout title={title} description={description}>
@@ -26,7 +28,7 @@ const navItems = [
           <div id="search" class="mb-4"></div>
           <nav class="flex flex-col gap-1 text-sm">
           {navItems.map((item) => (
-            <a href={item.href} class="block rounded-md px-3 py-1.5 text-wq-muted transition-colors duration-150 hover:bg-wq-surface hover:text-wq-accent-lt">
+            <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined} class:list={['block rounded-md px-3 py-1.5 text-wq-muted transition-colors duration-150 hover:bg-wq-surface hover:text-wq-accent-lt', currentPath === item.href && 'bg-wq-surface text-wq-accent-lt']}>
               {item.label}
             </a>
           ))}

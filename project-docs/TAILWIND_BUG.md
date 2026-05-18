@@ -43,38 +43,13 @@ Clean `bun create astro --template minimal` + Tailwind v4 + `@tailwindcss/vite`:
 
 ## Current Solution
 
-Plain CSS with custom properties (`src/styles/global.css`) and Astro scoped `<style>` blocks. All JSON example content is defined as JavaScript variables in Astro frontmatter and rendered with `{variableName}` syntax.
+Tailwind CSS v4 with `@tailwindcss/vite` plugin. WQ color tokens defined via `@theme` in `src/styles/global.css` and used as Tailwind utilities (`bg-wq-void`, `text-wq-accent`, etc.). No scoped `<style>` blocks — all styling uses Tailwind utility classes.
+
+All JSON example content is defined as JavaScript variables in Astro frontmatter and rendered with `{variableName}` syntax.
 
 ### Key constraint
 
 Never put JSON/JS-like `{...}` content directly in Astro HTML templates. Define it in frontmatter and render with Astro template expressions. This avoids esbuild seeing the braces during CSS bundling.
-
-## Correct Tailwind v4 Setup (when we switch)
-
-```bash
-bun add tailwindcss @tailwindcss/vite
-```
-
-`astro.config.mjs`:
-```js
-import { defineConfig } from 'astro/config'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()],
-  },
-})
-```
-
-`src/styles/global.css`:
-```css
-@import "tailwindcss";
-```
-
-Import that CSS in the layout. No `tailwind.config.*` needed unless customizing.
-
-**But**: All JSON example content must still use frontmatter variables, not inline HTML. The esbuild bug is independent of Tailwind.
 
 ## Versions
 
