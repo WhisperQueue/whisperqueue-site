@@ -1,0 +1,305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="WhisperQueue — GPU-accelerated transcription">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">
+        <span>RTX 3060</span>
+        <span class="eyebrow-dot">&middot;</span>
+        <span>faster-whisper</span>
+        <span class="eyebrow-dot">&middot;</span>
+        <span>LAN-only</span>
+      </div>
+
+      <h1 class="hero-title">
+        GPU-accelerated transcription<br />
+        that runs at <span class="accent">GPU speed</span>
+      </h1>
+
+      <p class="hero-sub">
+        Self-hosted async transcription for your local network.
+        Submit a job, get an ID, pick up the result when it's done.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="/docs" class="btn-primary">Read the docs</a>
+        <code class="btn-mono">npm install whisperqueue</code>
+      </div>
+
+      <div class="code-strip">
+        <span class="code-comment">// submit and wait for completion</span><br />
+        <span class="code-keyword">const</span> transcript = <span class="code-keyword">await</span> client.<span class="code-fn">transcribeAndWait</span>(<span class="code-string">'s3://bucket/audio/interview.mp3'</span>)
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">What makes it different</h2>
+      <p class="section-sub">
+        Existing Python containers are synchronous, uncacheable, and forget everything on restart.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>whisper-asr-webservice</th>
+            <th class="accent-col">WhisperQueue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>API style</td><td>Synchronous (blocks)</td><td>Async (returns job ID)</td></tr>
+          <tr><td>Job queue</td><td>None</td><td>SQLite-backed</td></tr>
+          <tr><td>Caching</td><td>None</td><td>ETag-based, skip GPU</td></tr>
+          <tr><td>S3/MinIO input</td><td>File upload only</td><td>URL-based</td></tr>
+          <tr><td>Persistence</td><td>None</td><td>SQLite via Drizzle</td></tr>
+          <tr><td>Progress endpoint</td><td>No</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2 class="section-title">Single process, zero dependencies</h2>
+      <p class="section-sub">
+        One container. One process. Hono HTTP server and bunqueue worker in the same Bun runtime.
+        No Postgres, no Redis, no Valkey.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-tag">HTTP</div>
+          <div class="card-title">Hono</div>
+          <div class="card-desc">Routes, auth, ETag cache check</div>
+        </div>
+        <div class="card">
+          <div class="card-tag">Queue</div>
+          <div class="card-title">bunqueue</div>
+          <div class="card-desc">SQLite-backed, persists across restarts</div>
+        </div>
+        <div class="card">
+          <div class="card-tag">Transcription</div>
+          <div class="card-title">faster-whisper</div>
+          <div class="card-desc">CUDA GPU via Bun.spawn()</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner cta-inner">
+      <h2 class="section-title">Get started</h2>
+      <p class="section-sub">Deploy on your LAN in minutes with Docker Compose.</p>
+      <div class="hero-ctas">
+        <a href="/docs" class="btn-primary">Read the docs</a>
+        <a href="/docs/deployment" class="btn-secondary">Deployment guide</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 5rem 1.5rem 4rem;
+  }
+
+  .hero-inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--wq-border);
+    background-color: var(--wq-raised);
+    padding: 0.25rem 0.75rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--wq-accent-lt);
+  }
+
+  .eyebrow-dot {
+    color: var(--wq-faint);
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  @media (min-width: 640px) {
+    .hero-title {
+      font-size: 3rem;
+    }
+  }
+
+  .accent {
+    color: var(--wq-accent);
+  }
+
+  .hero-sub {
+    margin-top: 1rem;
+    max-width: 36rem;
+    font-size: 1.125rem;
+    line-height: 1.625;
+    color: var(--wq-muted);
+  }
+
+  .hero-ctas {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    background-color: var(--wq-accent);
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--wq-text);
+    transition: background-color 150ms;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--wq-accent-lt);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid var(--wq-border);
+    background: transparent;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--wq-accent-lt);
+    transition: background-color 150ms;
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--wq-surface);
+  }
+
+  .btn-mono {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    border: 1px solid var(--wq-border);
+    background: transparent;
+    padding: 0.625rem 1rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: var(--wq-accent-lt);
+  }
+
+  .code-strip {
+    margin-top: 2.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--wq-border);
+    background-color: var(--wq-raised);
+    padding: 1.25rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    line-height: 2;
+  }
+
+  .code-comment { color: var(--wq-faint); }
+  .code-keyword { color: var(--wq-accent-lt); }
+  .code-fn { color: var(--wq-accent); }
+  .code-string { color: var(--wq-muted); }
+
+  .section {
+    padding: 4rem 1.5rem;
+    border-top: 1px solid var(--wq-border);
+  }
+
+  .section-alt {
+    background-color: var(--wq-surface);
+    margin: 0 -1.5rem;
+    padding: 4rem 3rem;
+  }
+
+  .section-inner {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .cta-inner {
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .section-sub {
+    margin-top: 0.5rem;
+    color: var(--wq-muted);
+    max-width: 36rem;
+  }
+
+  .cta-inner .section-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  table .accent-col {
+    color: var(--wq-accent-lt);
+  }
+
+  .cards {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    border-radius: 0.75rem;
+    border: 1px solid var(--wq-border);
+    background-color: var(--wq-surface);
+    padding: 1.25rem;
+  }
+
+  .card-tag {
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--wq-accent-lt);
+  }
+
+  .card-title {
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+  }
+
+  .card-desc {
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--wq-muted);
+  }
+</style>
