@@ -18,7 +18,7 @@ import '../styles/global.css'
     <title>{title}</title>
   </head>
   <body class="bg-wq-void text-wq-text font-sans antialiased">
-    <nav class="border-b border-wq-border bg-wq-void">
+    <nav data-pagefind-ignore class="border-b border-wq-border bg-wq-void">
       <div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
         <a href="/" class="font-medium text-wq-text transition-colors duration-150 hover:text-wq-accent-lt">WhisperQueue</a>
         <div class="flex items-center gap-6 text-sm">
@@ -32,7 +32,7 @@ import '../styles/global.css'
       <slot />
     </main>
 
-    <footer class="border-t border-wq-border py-8">
+    <footer data-pagefind-ignore class="border-t border-wq-border py-8">
       <div class="mx-auto px-6 text-center text-sm text-wq-faint">
         GPU-accelerated transcription — self-hosted, LAN-only
       </div>
