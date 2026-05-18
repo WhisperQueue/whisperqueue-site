@@ -1,0 +1,39 @@
+tsconfig.json
+  s_b3dc1cdf6387b7::t_eae13735740b9d 1-5
+package.json
+  s_b3dc1cdf6387b7::t_eae13735740b9d 1,3,7-11,18
+  s_b3dc1cdf6387b7::t_80439776ce11b4 5
+  s_b3dc1cdf6387b7::t_166210e5833db8 4,6
+  s_b3dc1cdf6387b7::t_5d64599e716ac0 2
+  s_b3dc1cdf6387b7::t_88260d7146388c 12
+  s_b3dc1cdf6387b7::t_8c764fa4c534cb 13-17
+README.md
+  s_b3dc1cdf6387b7::t_970581aba38101 2-29
+.gitignore
+  s_b3dc1cdf6387b7::t_ce4b3b0b706efa 144-149
+astro.config.mjs
+  s_b3dc1cdf6387b7::t_eae13735740b9d 1,3
+  s_b3dc1cdf6387b7::t_d6bfc8036f0b06 2,4-6
+.vscode/launch.json
+  s_b3dc1cdf6387b7::t_eae13735740b9d 1-11
+.vscode/extensions.json
+  s_b3dc1cdf6387b7::t_eae13735740b9d 1-4
+bun.lock
+  ai_agent 1-846
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "6ecc320b8ec8ed99d7cff4d31a2050d41405449a",
+  "prompts": {},
+  "sessions": {
+    "s_b3dc1cdf6387b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05cd4d9c-bb25-45e1-8e5c-65f74ea436e0",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
