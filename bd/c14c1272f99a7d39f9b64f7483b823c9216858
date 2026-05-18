@@ -1,0 +1,35 @@
+bun.lock
+  ai_agent 9,179-196,327-328,347-348,353-354,505-510,687-688,763-764,793
+src/pagefind.d.ts
+  s_b3dc1cdf6387b7::t_1b8a3122ed2c7a 1-6
+package.json
+  s_b3dc1cdf6387b7::t_de894295d8ad93 7
+astro.config.mjs
+  s_b3dc1cdf6387b7::t_86eefb317489f5 3,7
+src/layouts/BaseLayout.astro
+  s_b3dc1cdf6387b7::t_761b714e7e00bd 21
+  s_b3dc1cdf6387b7::t_c76a80016aed76 35
+src/layouts/DocsLayout.astro
+  s_b3dc1cdf6387b7::t_9b1b5d1568ecc4 25-27
+  s_b3dc1cdf6387b7::t_4ccd993ef41f9c 37
+  s_b3dc1cdf6387b7::t_bf026076adf474 34
+  s_b3dc1cdf6387b7::t_532fd3ba414dcf 42-51
+src/styles/global.css
+  s_b3dc1cdf6387b7::t_02d66a7af405cb 17-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "bdc14c1272f99a7d39f9b64f7483b823c9216858",
+  "prompts": {},
+  "sessions": {
+    "s_b3dc1cdf6387b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05cd4d9c-bb25-45e1-8e5c-65f74ea436e0",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
