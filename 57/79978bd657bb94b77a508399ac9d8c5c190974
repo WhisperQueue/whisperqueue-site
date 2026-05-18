@@ -1,0 +1,58 @@
+project-docs/TAILWIND_BUG.md
+  s_84a6e4d32e1422::t_f4eb7a1f199d26 45,47,49,51,53-73,76,78,80
+  s_b3dc1cdf6387b7::t_a6b0910192c08b 1,3,5,7,13,17,19,25-30,34-36,38,40-42,44,46,48,50,52,74-75,77,79,81-85
+  s_b3dc1cdf6387b7::t_fe271c6dba912e 2,4,6,8-12,14-16,18,20-24,31-33,37,39,43
+package.json
+  s_b3dc1cdf6387b7::t_ca0e608fa176ca 5-7
+src/pages/docs/api.astro
+  s_b3dc1cdf6387b7::t_1ee0d3e4d2696a 65-66,68-70,72-74,76,79-81,86-87,89-91,94-96,98-99,101-102,104-105,107-108,111-115,118,120,126-128,130,132
+CLAUDE.md
+  s_b3dc1cdf6387b7::t_8432cc78155ec9 6
+  s_b3dc1cdf6387b7::t_53ba32b909d024 14,18-22
+src/layouts/DocsLayout.astro
+  s_b3dc1cdf6387b7::t_f524f4166bd302 22-25,27,34,39
+src/pages/docs/deployment.astro
+  s_b3dc1cdf6387b7::t_6261af522806b6 6,8,13-15,18,21-24,26,29-30,36-40,43-44,46,50,54-55,62-65,70-73,75,78-82,87
+src/pages/docs/index.astro
+  s_b3dc1cdf6387b7::t_d969f91bdb02c2 6,8,13-16,18-20,22-24,26-28,30-32,35
+README.md
+  s_b3dc1cdf6387b7::t_4ed1f190a6b5d9 10
+src/styles/global.css
+  s_b3dc1cdf6387b7::t_883910c6d6803a 1-16
+astro.config.mjs
+  s_b3dc1cdf6387b7::t_d9b2bac90029fc 2,6-8
+src/layouts/BaseLayout.astro
+  s_b3dc1cdf6387b7::t_d7e55d32dd2a49 20-26,35-36,41
+src/pages/docs/errors.astro
+  s_b3dc1cdf6387b7::t_a0842422b056e8 6,8-9,11,14-20,24
+src/pages/index.astro
+  s_b3dc1cdf6387b7::t_f002a304bae0e2 6-8,10,12,16,18,21,26-28,31-33,38-41,45,48-50,54-59,65-68,73-77,79-82,84-87,93-99,103
+src/pages/docs/auth.astro
+  s_b3dc1cdf6387b7::t_293bcb3b810304 6,8-9,13,17-18,21-23,26-27,32-35,39
+src/pages/docs/caching.astro
+  s_b3dc1cdf6387b7::t_85a9199d7b11ad 6,8,13,27-29,36-38,44-47,51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.9",
+  "base_commit_sha": "5779978bd657bb94b77a508399ac9d8c5c190974",
+  "prompts": {},
+  "sessions": {
+    "s_84a6e4d32e1422": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "82b51b0b-4fab-4351-b057-7a0bf05f6336",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    },
+    "s_b3dc1cdf6387b7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "05cd4d9c-bb25-45e1-8e5c-65f74ea436e0",
+        "model": "glm-5.1"
+      },
+      "human_author": "Angel S. Moreno <angelxmoreno@gmail.com>"
+    }
+  }
+}
