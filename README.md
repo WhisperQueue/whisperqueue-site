@@ -7,7 +7,7 @@ Documentation and website for WhisperQueue — built with Astro.
 | Concern | Tool |
 |---|---|
 | Framework | Astro |
-| Styling | Tailwind CSS |
+| Styling | Tailwind CSS v4 |
 | Theme | Dark mode only (see DESIGN.md) |
 | Search | Pagefind |
 | Deployment | GitHub Pages via GitHub Actions |

@@ -17,13 +17,13 @@ import '../styles/global.css'
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
   </head>
-  <body>
-    <nav class="nav">
-      <div class="nav-inner">
-        <a href="/" class="nav-brand">WhisperQueue</a>
-        <div class="nav-links">
-          <a href="/docs">Docs</a>
-          <a href="https://github.com/WhisperQueue">GitHub</a>
+  <body class="bg-wq-void text-wq-text font-sans antialiased">
+    <nav class="border-b border-wq-border bg-wq-void">
+      <div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+        <a href="/" class="font-medium text-wq-text transition-colors duration-150 hover:text-wq-accent-lt">WhisperQueue</a>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="/docs" class="text-wq-muted transition-colors duration-150 hover:text-wq-accent-lt">Docs</a>
+          <a href="https://github.com/WhisperQueue" class="text-wq-muted transition-colors duration-150 hover:text-wq-accent-lt">GitHub</a>
         </div>
       </div>
     </nav>
@@ -32,66 +32,10 @@ import '../styles/global.css'
       <slot />
     </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
+    <footer class="border-t border-wq-border py-8">
+      <div class="mx-auto px-6 text-center text-sm text-wq-faint">
         GPU-accelerated transcription — self-hosted, LAN-only
       </div>
     </footer>
   </body>
 </html>
-
-<style>
-  .nav {
-    border-bottom: 1px solid var(--wq-border);
-    background-color: var(--wq-void);
-  }
-
-  .nav-inner {
-    max-width: 64rem;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.5rem;
-  }
-
-  .nav-brand {
-    font-weight: 500;
-    color: var(--wq-text);
-    transition: color 150ms;
-  }
-
-  .nav-brand:hover {
-    color: var(--wq-accent-lt);
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 0.875rem;
-  }
-
-  .nav-links a {
-    color: var(--wq-muted);
-    transition: color 150ms;
-  }
-
-  .nav-links a:hover {
-    color: var(--wq-accent-lt);
-  }
-
-  .footer {
-    border-top: 1px solid var(--wq-border);
-    padding: 2rem 0;
-  }
-
-  .footer-inner {
-    max-width: 64rem;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--wq-faint);
-  }
-</style>

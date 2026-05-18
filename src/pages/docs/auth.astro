@@ -3,56 +3,37 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 ---
 
 <DocsLayout title="Auth — WhisperQueue">
-  <h1>Authentication</h1>
+  <h1 class="text-3xl font-medium">Authentication</h1>
 
-  <p class="muted">
-    All endpoints except <code>GET /health</code> require a static API key
+  <p class="mt-4 text-wq-muted">
+    All endpoints except <code class="text-wq-accent-lt">GET /health</code> require a static API key
     via the Authorization header.
   </p>
 
-  <div class="code-block">
+  <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
     Authorization: Bearer &lt;API_KEY&gt;
   </div>
 
-  <p class="muted">
-    Returns <code>401 Unauthorized</code> if missing or incorrect.
+  <p class="mt-4 text-wq-muted">
+    Returns <code class="text-wq-accent-lt">401 Unauthorized</code> if missing or incorrect.
   </p>
 
-  <section class="docs-section">
-    <h2>Generating an API key</h2>
-    <div class="code-block">
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Generating an API key</h2>
+    <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
       openssl rand -hex 32
     </div>
-    <p class="muted">Set the key in your <code>.env</code> file:</p>
-    <div class="code-block">
+    <p class="mt-4 text-wq-muted">Set the key in your <code class="text-wq-accent-lt">.env</code> file:</p>
+    <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
       API_KEY=your-generated-key-here
     </div>
   </section>
 
-  <section class="docs-section">
-    <h2>Health endpoint exemption</h2>
-    <p class="muted">
-      <code>GET /health</code> does not require authentication.
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Health endpoint exemption</h2>
+    <p class="mt-2 text-wq-muted">
+      <code class="text-wq-accent-lt">GET /health</code> does not require authentication.
       This allows uptime monitors and load balancers to reach it without credentials.
     </p>
   </section>
 </DocsLayout>
-
-<style>
-  h1 { font-size: 1.875rem; font-weight: 500; }
-  h2 { font-size: 1.25rem; font-weight: 500; }
-  .muted { color: var(--wq-muted); margin-top: 0.5rem; }
-  .docs-section { margin-top: 2.5rem; }
-  .code-block {
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--wq-border);
-    background-color: var(--wq-raised);
-    padding: 1rem 1.25rem;
-    font-family: monospace;
-    font-size: 0.875rem;
-    line-height: 2;
-    overflow-x: auto;
-  }
-  code { color: var(--wq-accent-lt); }
-</style>

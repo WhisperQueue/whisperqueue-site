@@ -3,106 +3,85 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 ---
 
 <DocsLayout title="Deployment — WhisperQueue">
-  <h1>Deployment</h1>
+  <h1 class="text-3xl font-medium">Deployment</h1>
 
-  <p class="muted">
+  <p class="mt-4 text-wq-muted">
     WhisperQueue deploys as a single Docker container. No external services required —
     one process handles both the HTTP server and the job queue worker.
   </p>
 
-  <section class="docs-section">
-    <h2>Docker base image</h2>
-    <div class="code-block">
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Docker base image</h2>
+    <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm">
       nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
     </div>
-    <p class="muted">Installs Python + faster-whisper CLI (runtime only), ffmpeg, and Bun.</p>
+    <p class="mt-4 text-wq-muted">Installs Python + faster-whisper CLI (runtime only), ffmpeg, and Bun.</p>
   </section>
 
-  <section class="docs-section">
-    <h2>Volumes</h2>
-    <div class="table-wrap">
-      <table>
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Volumes</h2>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-sm">
         <thead>
-          <tr><th>Volume</th><th>Container path</th><th>Purpose</th></tr>
+          <tr><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Volume</th><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Container path</th><th class="border-b border-wq-border py-2 font-medium text-wq-muted">Purpose</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>whisper-models</code></td><td><code>/app/models</code></td><td>faster-whisper model weights (avoid re-downloading)</td></tr>
-          <tr><td><code>whisper-data</code></td><td><code>/app/data</code></td><td>SQLite database (job queue + transcript cache)</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">whisper-models</code></td><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">/app/models</code></td><td class="border-b border-wq-border py-2">faster-whisper model weights (avoid re-downloading)</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">whisper-data</code></td><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">/app/data</code></td><td class="border-b border-wq-border py-2">SQLite database (job queue + transcript cache)</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section class="docs-section">
-    <h2>Configuration</h2>
-    <p class="muted">Create a <code>.env</code> file:</p>
-    <div class="code-block">
-      <span class="c-faint"># Server</span><br />
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Configuration</h2>
+    <p class="mt-2 text-wq-muted">Create a <code class="text-wq-accent-lt">.env</code> file:</p>
+    <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
+      <span class="text-wq-faint"># Server</span><br />
       PORT=3000<br />
       <br />
-      <span class="c-faint"># Auth</span><br />
-      API_KEY=<span class="c-faint"># generate with: openssl rand -hex 32</span><br />
+      <span class="text-wq-faint"># Auth</span><br />
+      API_KEY=<span class="text-wq-faint"># generate with: openssl rand -hex 32</span><br />
       <br />
-      <span class="c-faint"># Whisper</span><br />
+      <span class="text-wq-faint"># Whisper</span><br />
       WHISPER_MODEL=large-v3<br />
       BEAM_SIZE=5<br />
       <br />
-      <span class="c-faint"># File handling</span><br />
+      <span class="text-wq-faint"># File handling</span><br />
       MAX_FILE_SIZE_MB=500<br />
       DOWNLOAD_TIMEOUT_SECONDS=120<br />
       <br />
-      <span class="c-faint"># S3 / MinIO</span><br />
-      S3_ENDPOINT_URL=<span class="c-faint"># e.g. http://minio:9000 — blank for AWS</span><br />
+      <span class="text-wq-faint"># S3 / MinIO</span><br />
+      S3_ENDPOINT_URL=<span class="text-wq-faint"># e.g. http://minio:9000 — blank for AWS</span><br />
       AWS_ACCESS_KEY_ID=<br />
       AWS_SECRET_ACCESS_KEY=<br />
       AWS_REGION=us-east-1
     </div>
   </section>
 
-  <section class="docs-section">
-    <h2>Network</h2>
-    <p class="muted">
-      Port bound to <code>192.168.1.118</code> only — LAN accessible,
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Network</h2>
+    <p class="mt-2 text-wq-muted">
+      Port bound to <code class="text-wq-accent-lt">192.168.1.118</code> only — LAN accessible,
       not internet-facing. No TLS needed for local-only use.
     </p>
   </section>
 
-  <section class="docs-section">
-    <h2>Models</h2>
-    <div class="table-wrap">
-      <table>
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Models</h2>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full text-sm">
         <thead>
-          <tr><th>Model</th><th>WHISPER_MODEL value</th></tr>
+          <tr><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Model</th><th class="border-b border-wq-border py-2 font-medium text-wq-muted">WHISPER_MODEL value</th></tr>
         </thead>
         <tbody>
-          <tr><td>Tiny</td><td><code>tiny</code></td></tr>
-          <tr><td>Base</td><td><code>base</code></td></tr>
-          <tr><td>Small</td><td><code>small</code></td></tr>
-          <tr><td>Medium</td><td><code>medium</code></td></tr>
-          <tr><td>Large v3</td><td><code>large-v3</code></td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Tiny</td><td class="border-b border-wq-border py-2"><code class="text-wq-accent-lt">tiny</code></td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Base</td><td class="border-b border-wq-border py-2"><code class="text-wq-accent-lt">base</code></td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Small</td><td class="border-b border-wq-border py-2"><code class="text-wq-accent-lt">small</code></td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Medium</td><td class="border-b border-wq-border py-2"><code class="text-wq-accent-lt">medium</code></td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Large v3</td><td class="border-b border-wq-border py-2"><code class="text-wq-accent-lt">large-v3</code></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 </DocsLayout>
-
-<style>
-  h1 { font-size: 1.875rem; font-weight: 500; }
-  h2 { font-size: 1.25rem; font-weight: 500; }
-  .muted { color: var(--wq-muted); margin-top: 0.5rem; }
-  .docs-section { margin-top: 2.5rem; }
-  .table-wrap { margin-top: 1rem; overflow-x: auto; }
-  .code-block {
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--wq-border);
-    background-color: var(--wq-raised);
-    padding: 1rem 1.25rem;
-    font-family: monospace;
-    font-size: 0.875rem;
-    line-height: 2;
-    overflow-x: auto;
-  }
-  .c-faint { color: var(--wq-faint); }
-  code { color: var(--wq-accent-lt); }
-</style>

@@ -3,14 +3,14 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 ---
 
 <DocsLayout title="Caching — WhisperQueue">
-  <h1>Caching</h1>
+  <h1 class="text-3xl font-medium">Caching</h1>
 
-  <p class="muted">
+  <p class="mt-4 text-wq-muted">
     WhisperQueue uses S3/MinIO ETag headers (MD5 of file content) as cache keys.
     A HEAD request checks the ETag before any download — no bandwidth wasted on cache hits.
   </p>
 
-  <div class="code-block">
+  <div class="mt-8 rounded-lg border border-wq-border bg-wq-raised p-5 font-mono text-sm leading-8">
     POST /transcribe (s3://bucket/file.mp3)<br />
     &nbsp;&nbsp;&darr;<br />
     HEAD request &rarr; get ETag (no download)<br />
@@ -24,47 +24,28 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return transcript_id via /status
   </div>
 
-  <section class="docs-section">
-    <h2>HTTPS URLs</h2>
-    <p class="muted">
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">HTTPS URLs</h2>
+    <p class="mt-2 text-wq-muted">
       For HTTPS URLs, WhisperQueue checks ETag or Content-MD5 response headers.
       If neither is present, it hashes the bytes during the single download pass — never downloads twice.
       Cache is checked after hashing; hits discard the temp file, misses proceed to transcription.
     </p>
   </section>
 
-  <section class="docs-section">
-    <h2>Multipart upload caveat</h2>
-    <p class="muted">
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Multipart upload caveat</h2>
+    <p class="mt-2 text-wq-muted">
       S3 multipart uploads produce a composite ETag (hash of hashes, not plain MD5).
       Rare for audio files but worth knowing.
     </p>
   </section>
 
-  <section class="docs-section">
-    <h2>Bypassing the cache</h2>
-    <p class="muted">
-      Pass <code>?force=true</code> on <code>POST /transcribe</code> to re-transcribe
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Bypassing the cache</h2>
+    <p class="mt-2 text-wq-muted">
+      Pass <code class="text-wq-accent-lt">?force=true</code> on <code class="text-wq-accent-lt">POST /transcribe</code> to re-transcribe
       a file that already has a cached result.
     </p>
   </section>
 </DocsLayout>
-
-<style>
-  h1 { font-size: 1.875rem; font-weight: 500; }
-  h2 { font-size: 1.25rem; font-weight: 500; }
-  .muted { color: var(--wq-muted); margin-top: 0.5rem; }
-  .docs-section { margin-top: 2.5rem; }
-  .code-block {
-    margin-top: 2rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--wq-border);
-    background-color: var(--wq-raised);
-    padding: 1.25rem;
-    font-family: monospace;
-    font-size: 0.875rem;
-    line-height: 2;
-    overflow-x: auto;
-  }
-  code { color: var(--wq-accent-lt); }
-</style>

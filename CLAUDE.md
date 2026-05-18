@@ -3,7 +3,7 @@
 ## Stack
 
 - Astro (SSG)
-- Tailwind CSS
+- Tailwind CSS v4 with `@tailwindcss/vite`
 - Pagefind for search
 - Bun runtime
 
@@ -11,9 +11,15 @@
 
 Follow the WhisperQueue design system in `project-docs/DESIGN.md`:
 - Dark mode only — no light variant
-- Use WQ color tokens (`--wq-void`, `--wq-surface`, `--wq-raised`, `--wq-border`, `--wq-accent`, etc.)
+- WQ colors defined as Tailwind theme values in `src/styles/global.css` (`bg-wq-void`, `text-wq-accent`, etc.)
 - System sans-serif font stack
 - No gradients, glow, neon, blue/purple accents, emoji, or marketing superlatives
+
+### esbuild CSS bug
+
+Never put JSON/JS-like `{...}` content directly in Astro HTML templates — esbuild's CSS bundler
+misinterprets curly braces as CSS selectors. Define data in frontmatter variables and render with
+`{variableName}`. See `project-docs/TAILWIND_BUG.md` for details.
 
 ## Scope
 

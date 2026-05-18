@@ -3,28 +3,22 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
 ---
 
 <DocsLayout title="Error codes — WhisperQueue">
-  <h1>Error codes</h1>
+  <h1 class="text-3xl font-medium mb-6">Error codes</h1>
 
-  <div class="table-wrap">
-    <table>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
       <thead>
-        <tr><th>Code</th><th>Meaning</th></tr>
+        <tr><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Code</th><th class="border-b border-wq-border py-2 font-medium text-wq-muted">Meaning</th></tr>
       </thead>
       <tbody>
-        <tr><td><code>400</code></td><td>Missing or malformed URL, unsupported scheme, S3 not configured</td></tr>
-        <tr><td><code>401</code></td><td>Missing or invalid API key</td></tr>
-        <tr><td><code>404</code></td><td>Job or transcript not found</td></tr>
-        <tr><td><code>413</code></td><td>File exceeds <code>MAX_FILE_SIZE_MB</code></td></tr>
-        <tr><td><code>422</code></td><td>Unsupported audio format</td></tr>
-        <tr><td><code>425</code></td><td>Transcript not ready yet</td></tr>
-        <tr><td><code>500</code></td><td>Download failure, transcription error</td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">400</code></td><td class="border-b border-wq-border py-2">Missing or malformed URL, unsupported scheme, S3 not configured</td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">401</code></td><td class="border-b border-wq-border py-2">Missing or invalid API key</td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">404</code></td><td class="border-b border-wq-border py-2">Job or transcript not found</td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">413</code></td><td class="border-b border-wq-border py-2">File exceeds <code class="text-wq-accent-lt">MAX_FILE_SIZE_MB</code></td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">422</code></td><td class="border-b border-wq-border py-2">Unsupported audio format</td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">425</code></td><td class="border-b border-wq-border py-2">Transcript not ready yet</td></tr>
+        <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">500</code></td><td class="border-b border-wq-border py-2">Download failure, transcription error</td></tr>
       </tbody>
     </table>
   </div>
 </DocsLayout>
-
-<style>
-  h1 { font-size: 1.875rem; font-weight: 500; margin-bottom: 1.5rem; }
-  .table-wrap { overflow-x: auto; }
-  code { color: var(--wq-accent-lt); }
-</style>
