@@ -1,0 +1,53 @@
+---
+import BaseLayout from './BaseLayout.astro'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+
+const navItems = [
+  { href: '/docs', label: 'Overview' },
+  { href: '/docs/api', label: 'API reference' },
+  { href: '/docs/caching', label: 'Caching' },
+  { href: '/docs/auth', label: 'Auth' },
+  { href: '/docs/errors', label: 'Error codes' },
+  { href: '/docs/deployment', label: 'Deployment' },
+]
+
+const currentPath = Astro.url.pathname
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mx-auto max-w-4xl px-6 py-10">
+    <div class="flex gap-10">
+      <aside class="hidden w-48 shrink-0 md:block">
+        <div class="sticky top-10">
+          <div id="search" class="mb-4"></div>
+          <nav class="flex flex-col gap-1 text-sm">
+          {navItems.map((item) => (
+            <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined} class:list={['block rounded-md px-3 py-1.5 text-wq-muted transition-colors duration-150 hover:bg-wq-surface hover:text-wq-accent-lt', currentPath === item.href && 'bg-wq-surface text-wq-accent-lt']}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
+        </div>
+      </aside>
+
+      <div data-pagefind-body class="min-w-0 flex-1">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('search')
+    if (el && typeof PagefindUI !== 'undefined') {
+      new PagefindUI({ element: '#search', showSubResults: true })
+    }
+  })
+</script>

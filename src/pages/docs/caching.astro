@@ -1,0 +1,51 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Caching — WhisperQueue">
+  <h1 class="text-3xl font-medium">Caching</h1>
+
+  <p class="mt-4 text-wq-muted">
+    WhisperQueue uses S3/MinIO ETag headers (MD5 of file content) as cache keys.
+    A HEAD request checks the ETag before any download — no bandwidth wasted on cache hits.
+  </p>
+
+  <div class="mt-8 rounded-lg border border-wq-border bg-wq-raised p-5 font-mono text-sm leading-8">
+    POST /transcribe (s3://bucket/file.mp3)<br />
+    &nbsp;&nbsp;&darr;<br />
+    HEAD request &rarr; get ETag (no download)<br />
+    &nbsp;&nbsp;&darr;<br />
+    Check SQLite for existing transcript with that hash<br />
+    &nbsp;&nbsp;&darr; hit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&darr; miss<br />
+    Return transcript_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download file<br />
+    instantly, no job&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Queue job<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Process with faster-whisper<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Store result in SQLite<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Return transcript_id via /status
+  </div>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">HTTPS URLs</h2>
+    <p class="mt-2 text-wq-muted">
+      For HTTPS URLs, WhisperQueue checks ETag or Content-MD5 response headers.
+      If neither is present, it hashes the bytes during the single download pass — never downloads twice.
+      Cache is checked after hashing; hits discard the temp file, misses proceed to transcription.
+    </p>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Multipart upload caveat</h2>
+    <p class="mt-2 text-wq-muted">
+      S3 multipart uploads produce a composite ETag (hash of hashes, not plain MD5).
+      Rare for audio files but worth knowing.
+    </p>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Bypassing the cache</h2>
+    <p class="mt-2 text-wq-muted">
+      Pass <code class="text-wq-accent-lt">?force=true</code> on <code class="text-wq-accent-lt">POST /transcribe</code> to re-transcribe
+      a file that already has a cached result.
+    </p>
+  </section>
+</DocsLayout>

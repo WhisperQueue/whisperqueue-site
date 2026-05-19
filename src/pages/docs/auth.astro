@@ -1,0 +1,39 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+---
+
+<DocsLayout title="Auth — WhisperQueue">
+  <h1 class="text-3xl font-medium">Authentication</h1>
+
+  <p class="mt-4 text-wq-muted">
+    All endpoints except <code class="text-wq-accent-lt">GET /health</code> require a static API key
+    via the Authorization header.
+  </p>
+
+  <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
+    Authorization: Bearer &lt;API_KEY&gt;
+  </div>
+
+  <p class="mt-4 text-wq-muted">
+    Returns <code class="text-wq-accent-lt">401 Unauthorized</code> if missing or incorrect.
+  </p>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Generating an API key</h2>
+    <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
+      openssl rand -hex 32
+    </div>
+    <p class="mt-4 text-wq-muted">Set the key in your <code class="text-wq-accent-lt">.env</code> file:</p>
+    <div class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8">
+      API_KEY=your-generated-key-here
+    </div>
+  </section>
+
+  <section class="mt-10">
+    <h2 class="text-xl font-medium">Health endpoint exemption</h2>
+    <p class="mt-2 text-wq-muted">
+      <code class="text-wq-accent-lt">GET /health</code> does not require authentication.
+      This allows uptime monitors and load balancers to reach it without credentials.
+    </p>
+  </section>
+</DocsLayout>

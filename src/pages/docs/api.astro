@@ -1,0 +1,132 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro'
+
+const exampleNewJob = JSON.stringify({
+  job_id: "job_abc123",
+  status: "queued",
+  position: 3
+}, null, 2)
+
+const exampleCacheHit = JSON.stringify({
+  transcript_id: "tr_xyz789",
+  cached: true
+}, null, 2)
+
+const exampleStatusQueued = JSON.stringify({
+  job_id: "job_abc123",
+  status: "queued",
+  position: 3,
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleStatusProcessing = JSON.stringify({
+  job_id: "job_abc123",
+  status: "processing",
+  progress: 42,
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleStatusCompleted = JSON.stringify({
+  job_id: "job_abc123",
+  status: "completed",
+  transcript_id: "tr_xyz789",
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleStatusFailed = JSON.stringify({
+  job_id: "job_abc123",
+  status: "failed",
+  error: "could not download file",
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleTranscript = JSON.stringify({
+  transcript_id: "tr_xyz789",
+  text: "Hey welcome back to the channel...",
+  language: "en",
+  duration: 142.5,
+  cached: true,
+  segments: [
+    { start: 0.0, end: 4.2, text: "Hey welcome back..." },
+    { start: 4.2, end: 8.7, text: "today we are going to..." }
+  ],
+  created_at: "2026-05-16T12:00:00Z"
+}, null, 2)
+
+const exampleHealth = JSON.stringify({
+  status: "ok",
+  model: "large-v3",
+  device: "cuda",
+  queue_depth: 2
+}, null, 2)
+---
+
+<DocsLayout title="API reference — WhisperQueue">
+  <h1 class="text-3xl font-medium">API reference</h1>
+  <p class="mt-2 text-wq-muted">Base URL: <code class="text-wq-accent-lt">http://omen.local:3000</code></p>
+
+  <section class="mt-12">
+    <h2 class="text-xl font-medium">POST /transcribe</h2>
+    <p class="mt-2 text-wq-muted">Submit a transcription job. Returns a job ID immediately — does not wait for completion.</p>
+
+    <h3 class="mt-6 text-lg font-medium">Request body</h3>
+    <div class="mt-3 overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Field</th><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Type</th><th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Required</th><th class="border-b border-wq-border py-2 font-medium text-wq-muted">Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">url</code></td><td class="border-b border-wq-border py-2 pr-3">string</td><td class="border-b border-wq-border py-2 pr-3">Yes</td><td class="border-b border-wq-border py-2">S3 or HTTPS URL</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">language</code></td><td class="border-b border-wq-border py-2 pr-3">string</td><td class="border-b border-wq-border py-2 pr-3">No</td><td class="border-b border-wq-border py-2">BCP-47 code. Omit to auto-detect.</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3"><code class="text-wq-accent-lt">force</code></td><td class="border-b border-wq-border py-2 pr-3">boolean</td><td class="border-b border-wq-border py-2 pr-3">No</td><td class="border-b border-wq-border py-2">Bypass cache. Default <code class="text-wq-accent-lt">false</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="mt-6 text-lg font-medium">Response — new job</h3>
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleNewJob}</pre>
+
+    <h3 class="mt-6 text-lg font-medium">Response — cache hit</h3>
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleCacheHit}</pre>
+    <p class="mt-3 text-sm text-wq-muted">Cache hits skip the queue and return the transcript ID immediately.</p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-xl font-medium">GET /status/:job_id</h2>
+    <p class="mt-2 text-wq-muted">Poll for job progress. Job and transcript are separate concepts with separate IDs.</p>
+
+    <h3 class="mt-6 text-lg font-medium">Queued</h3>
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleStatusQueued}</pre>
+
+    <h3 class="mt-6 text-lg font-medium">Processing</h3>
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleStatusProcessing}</pre>
+
+    <h3 class="mt-6 text-lg font-medium">Completed</h3>
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleStatusCompleted}</pre>
+
+    <h3 class="mt-6 text-lg font-medium">Failed</h3>
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleStatusFailed}</pre>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-xl font-medium">GET /transcript/:transcript_id</h2>
+    <p class="mt-2 text-wq-muted">
+      Fetch the completed transcript. Returns <code class="text-wq-accent-lt">425 Too Early</code> if job isn't done,
+      <code class="text-wq-accent-lt">404</code> if not found.
+    </p>
+
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleTranscript}</pre>
+
+    <p class="mt-3 text-sm text-wq-muted">
+      Segments are the transcript broken into timed chunks. Useful for subtitles, audio players,
+      searchable transcripts, and speaker attribution.
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <h2 class="text-xl font-medium">GET /health</h2>
+    <p class="mt-2 text-wq-muted">Service status. Exempt from API key auth so uptime monitors can reach it.</p>
+
+    <pre class="mt-4 rounded-lg border border-wq-border bg-wq-raised p-4 font-mono text-sm leading-8 text-wq-text">{exampleHealth}</pre>
+  </section>
+</DocsLayout>

@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wq-void: #0c0a08;
+  --color-wq-surface: #161210;
+  --color-wq-raised: #241e18;
+  --color-wq-border: #3d2a1a;
+  --color-wq-accent: #e8702a;
+  --color-wq-accent-lt: #ff9a5c;
+  --color-wq-accent-sub: #fff0e6;
+  --color-wq-text: #fff0e6;
+  --color-wq-muted: #a07050;
+  --color-wq-faint: #6b4a33;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: monospace;
+}
+
+/* Pagefind UI overrides */
+:root {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: var(--color-wq-text);
+  --pagefind-ui-text: var(--color-wq-text);
+  --pagefind-ui-background: var(--color-wq-surface);
+  --pagefind-ui-border: var(--color-wq-border);
+  --pagefind-ui-tag: var(--color-wq-raised);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 6px;
+  --pagefind-ui-font: var(--font-sans);
+}

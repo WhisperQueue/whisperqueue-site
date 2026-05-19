@@ -1,0 +1,41 @@
+---
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = 'GPU-accelerated async transcription microservice — self-hosted, LAN-only, machine-to-machine.' } = Astro.props
+import '../styles/global.css'
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-wq-void text-wq-text font-sans antialiased">
+    <nav data-pagefind-ignore class="border-b border-wq-border bg-wq-void">
+      <div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
+        <a href="/" class="font-medium text-wq-text transition-colors duration-150 hover:text-wq-accent-lt">WhisperQueue</a>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="/docs" class="text-wq-muted transition-colors duration-150 hover:text-wq-accent-lt">Docs</a>
+          <a href="https://github.com/WhisperQueue" class="text-wq-muted transition-colors duration-150 hover:text-wq-accent-lt">GitHub</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer data-pagefind-ignore class="border-t border-wq-border py-8">
+      <div class="mx-auto px-6 text-center text-sm text-wq-faint">
+        GPU-accelerated transcription — self-hosted, LAN-only
+      </div>
+    </footer>
+  </body>
+</html>

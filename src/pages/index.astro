@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="WhisperQueue — GPU-accelerated transcription">
+  <section class="px-6 pb-16 pt-20">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-wq-border bg-wq-raised px-3 py-1 font-mono text-xs tracking-wider text-wq-accent-lt">
+        <span>RTX 3060</span>
+        <span class="text-wq-faint">&middot;</span>
+        <span>faster-whisper</span>
+        <span class="text-wq-faint">&middot;</span>
+        <span>LAN-only</span>
+      </div>
+
+      <h1 class="text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
+        GPU-accelerated transcription<br />
+        that runs at <span class="text-wq-accent">GPU speed</span>
+      </h1>
+
+      <p class="mt-4 max-w-2xl text-lg leading-relaxed text-wq-muted">
+        Self-hosted async transcription for your local network.
+        Submit a job, get an ID, pick up the result when it's done.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a href="/docs" class="inline-flex items-center rounded-lg bg-wq-accent px-5 py-2.5 text-sm font-medium text-wq-text transition-colors duration-150 hover:bg-wq-accent-lt">Read the docs</a>
+        <code class="inline-flex items-center rounded-lg border border-wq-border bg-transparent px-4 py-2.5 font-mono text-sm text-wq-accent-lt">npm install whisperqueue</code>
+      </div>
+
+      <div class="mt-10 rounded-lg border border-wq-border bg-wq-raised p-5 font-mono text-sm leading-8">
+        <span class="text-wq-faint">// submit and wait for completion</span><br />
+        <span class="text-wq-accent-lt">const</span> transcript = <span class="text-wq-accent-lt">await</span> client.<span class="text-wq-accent">transcribeAndWait</span>(<span class="text-wq-muted">'s3://bucket/audio/interview.mp3'</span>)
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-wq-border px-6 py-16">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-2xl font-medium">What makes it different</h2>
+      <p class="mt-2 max-w-2xl text-wq-muted">
+        Existing Python containers are synchronous, uncacheable, and forget everything on restart.
+      </p>
+
+      <table class="mt-6 w-full text-sm">
+        <thead>
+          <tr>
+            <th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">Feature</th>
+            <th class="border-b border-wq-border py-2 pr-3 font-medium text-wq-muted">whisper-asr-webservice</th>
+            <th class="border-b border-wq-border py-2 font-medium text-wq-accent-lt">WhisperQueue</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="border-b border-wq-border py-2 pr-3">API style</td><td class="border-b border-wq-border py-2 pr-3">Synchronous (blocks)</td><td class="border-b border-wq-border py-2">Async (returns job ID)</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Job queue</td><td class="border-b border-wq-border py-2 pr-3">None</td><td class="border-b border-wq-border py-2">SQLite-backed</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Caching</td><td class="border-b border-wq-border py-2 pr-3">None</td><td class="border-b border-wq-border py-2">ETag-based, skip GPU</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">S3/MinIO input</td><td class="border-b border-wq-border py-2 pr-3">File upload only</td><td class="border-b border-wq-border py-2">URL-based</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Persistence</td><td class="border-b border-wq-border py-2 pr-3">None</td><td class="border-b border-wq-border py-2">SQLite via Drizzle</td></tr>
+          <tr><td class="border-b border-wq-border py-2 pr-3">Progress endpoint</td><td class="border-b border-wq-border py-2 pr-3">No</td><td class="border-b border-wq-border py-2">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="bg-wq-surface -mx-6 px-12 py-16">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-2xl font-medium">Single process, zero dependencies</h2>
+      <p class="mt-2 max-w-2xl text-wq-muted">
+        One container. One process. Hono HTTP server and bunqueue worker in the same Bun runtime.
+        No Postgres, no Redis, no Valkey.
+      </p>
+
+      <div class="mt-8 grid gap-4 sm:grid-cols-3">
+        <div class="rounded-xl border border-wq-border bg-wq-surface p-5">
+          <div class="font-mono text-xs tracking-wider text-wq-accent-lt">HTTP</div>
+          <div class="mt-2 text-lg font-medium">Hono</div>
+          <div class="mt-1 text-sm text-wq-muted">Routes, auth, ETag cache check</div>
+        </div>
+        <div class="rounded-xl border border-wq-border bg-wq-surface p-5">
+          <div class="font-mono text-xs tracking-wider text-wq-accent-lt">Queue</div>
+          <div class="mt-2 text-lg font-medium">bunqueue</div>
+          <div class="mt-1 text-sm text-wq-muted">SQLite-backed, persists across restarts</div>
+        </div>
+        <div class="rounded-xl border border-wq-border bg-wq-surface p-5">
+          <div class="font-mono text-xs tracking-wider text-wq-accent-lt">Transcription</div>
+          <div class="mt-2 text-lg font-medium">faster-whisper</div>
+          <div class="mt-1 text-sm text-wq-muted">CUDA GPU via Bun.spawn()</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-wq-border px-6 py-16">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2 class="text-2xl font-medium">Get started</h2>
+      <p class="mx-auto mt-2 max-w-2xl text-wq-muted">Deploy on your LAN in minutes with Docker Compose.</p>
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="/docs" class="inline-flex items-center rounded-lg bg-wq-accent px-5 py-2.5 text-sm font-medium text-wq-text transition-colors duration-150 hover:bg-wq-accent-lt">Read the docs</a>
+        <a href="/docs/deployment" class="inline-flex items-center rounded-lg border border-wq-border bg-transparent px-5 py-2.5 text-sm font-medium text-wq-accent-lt transition-colors duration-150 hover:bg-wq-surface">Deployment guide</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
